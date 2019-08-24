@@ -58,6 +58,11 @@ void Game::ProcessInput() {
 }
 
 void Game::Update() {
+
+    float deltaTime = (SDL_GetTicks() - lastFrameTicks) / SECOND;
+
+    lastFrameTicks = SDL_GetTicks();
+
     projectilePosX += projectileVelX;
     projectilePosY += projectileVelY;
 }
@@ -80,6 +85,7 @@ void Game::Render() {
     SDL_RenderFillRect(renderer, &projectile);
 
     // This is actually going to swap the buffers
+    // Please don't forget this again...can't stand to keep crashing
     SDL_RenderPresent(renderer);
 }
 
