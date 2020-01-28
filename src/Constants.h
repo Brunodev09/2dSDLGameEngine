@@ -4,9 +4,9 @@
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 
-const unsigned int FPS = 60;
-const unsigned int SECOND = 1000;
+const float FPS = 60.0f;
+const float SECOND = 1000.0f;
 // around 16ms per frame
-const unsigned int FRAME_TIME_MS = 1000 / FPS;
+const float FRAME_TIME_MS = 1000.0f / FPS;
 
 #endif
