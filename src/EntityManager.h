@@ -5,6 +5,9 @@
 #include "./Component.h"
 #include <vector>
 
+class Entity;
+class Component;
+
 class EntityManager {
     private:
         std::vector<Entity*> entities;

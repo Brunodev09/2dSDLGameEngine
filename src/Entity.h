@@ -4,8 +4,11 @@
 #include <vector>
 #include <string>
 
-class Component;
+#include "./EntityManager.h"
+#include "./Component.h"
+
 class EntityManager;
+class Component;
 
 class Entity {
     private:

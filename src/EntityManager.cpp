@@ -31,3 +31,7 @@ Entity& EntityManager::AddEntity(std::string entityName) {
 std::vector<Entity*> EntityManager::GetEntities() const {
     return entities;
 }
+
+unsigned int EntityManager::GetEntityCount() {
+    return entities.size();
+}
