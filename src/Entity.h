@@ -14,9 +14,9 @@ class Entity {
     private:
         EntityManager& manager;
         bool isActive;
-        std::vector<Component*> components;
         
     public:
+        std::vector<Component*> components;
         std::string name;
         Entity(EntityManager& manager);
         Entity(EntityManager& manager, std::string name);
@@ -24,6 +24,16 @@ class Entity {
         void Render();
         void Destroy();
         bool IsActive() const;
+
+        template <typename T, typename... TArgs>
+        T& AddComponent(TArgs&&... args) {
+            T* newComponent(new T(std::forward<TArgs>(args)...));
+            newComponent->componentName = typeid(T).name();
+            newComponent->owner = this;
+            components.emplace_back(newComponent);
+            newComponent->Init();
+            return *newComponent;
+        }
 };
 
 #endif

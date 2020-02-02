@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./Game.h"
 #include "./Constants.h"
+#include "./Components/Transform.h"
 #include "../lib/glm/glm.hpp"
 
 EntityManager manager;
@@ -32,8 +33,17 @@ void Game::Initialize(int width, int height) {
         return;
     }
 
+    load(0);
+
     isRunning = true;
     return;
+}
+
+void Game::load(int n) {
+    Entity& newE(manager.AddEntity("square_1"));
+    newE.AddComponent<Transform>(0, 0, 20, 20, 32, 32, 1);
+    manager.ListAllEntities();
+
 }
 
 void Game::ProcessInput() {
@@ -59,6 +69,8 @@ void Game::Update() {
     deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
 
     lastFrameTicks = SDL_GetTicks();
+
+    manager.Update(deltaTime);
 }
 
 void Game::Render() {
@@ -68,6 +80,8 @@ void Game::Render() {
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
 
+    if (manager.hasNoEntities()) return;
+    manager.Render();
 
     // This is actually going to swap the buffers
     // Please don't forget this again...can't stand to keep crashing
