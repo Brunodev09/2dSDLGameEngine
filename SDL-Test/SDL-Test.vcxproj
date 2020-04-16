@@ -154,6 +154,8 @@
     <ClInclude Include="Core\Entity.h" />
     <ClInclude Include="Core\EntityManager.h" />
     <ClInclude Include="Core\Components\Sprite.h" />
+    <ClInclude Include="Render\RectManager.h" />
+    <ClInclude Include="Render\Video.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

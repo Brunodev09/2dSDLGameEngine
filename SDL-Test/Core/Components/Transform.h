@@ -3,6 +3,7 @@
 
 #include "../EntityManager.h"
 #include "../../Window.h"
+#include "../../Render/Video.h"
 #include <glm.hpp>
 #include <SDL.h>
 
@@ -32,14 +33,9 @@ public:
     }
 
     void Render() override {
-        SDL_Rect rectangle = {
-            (int)position.x,
-            (int)position.y,
-            width,
-            height
-        };
-        SDL_SetRenderDrawColor(Window::renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(Window::renderer, &rectangle);
+        SDL_SetRenderDrawColor(Window::renderer, 0, 0, 0, 255);
+        SDL_Rect* rectangle = &Video::getRectangle((int)position.x, (int)position.y, width, height);
+        SDL_RenderFillRect(Window::renderer, rectangle);
     }
 };
 

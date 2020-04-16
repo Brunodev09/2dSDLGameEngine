@@ -2,6 +2,7 @@
 #include "./Window.h"
 
 int main(int argc, char* args[]) {
+    
 	Window *win = new Window();
 
 	win->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -11,7 +12,6 @@ int main(int argc, char* args[]) {
         win->Update();
         win->Render();
     }
-
     win->Destroy();
 
     return 0;

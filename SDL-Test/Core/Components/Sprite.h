@@ -4,73 +4,88 @@
 #include <iostream>
 #include "../EntityManager.h"
 #include "../../Window.h"
+#include "../../Render/Video.h"
+#include "../../Core/Constants.h"
 #include <glm.hpp>
 #include <string>
 
 class Sprite : public Component {
 private:
-    SDL_Surface* gSprite = NULL;
+	SDL_Texture* gTexture = NULL;
 
 public:
-    glm::vec2 position;
-    glm::vec2 velocity;
-    int width;
-    int height;
-    int scale;
-    std::string color;
+	glm::vec2 position;
+	glm::vec2 velocity;
+	int width;
+	int height;
+	int scale;
+	std::string color;
 
-    Sprite(int pX, int pY, int vX, int vY, int w, int h, int s, std::string c) {
-        position = glm::vec2(pX, pY);
-        velocity = glm::vec2(vX, vY);
-        width = w;
-        height = h;
-        scale = s;
-        color = c;
-    }
 
-    void Init() override {
-        loadResources();
-    }
+	Sprite(int pX, int pY, int vX, int vY, int w, int h, int s, std::string c) {
+		position = glm::vec2(pX, pY);
+		velocity = glm::vec2(vX, vY);
+		width = w;
+		height = h;
+		scale = s;
+		color = c;
+	}
 
-    bool loadResources() {
-        bool success = true;
+	string_const hash(std::string const& str) {
+		if (str == "red") return string_const::red;
+		if (str == "green") return string_const::green;
+		if (str == "blue") return string_const::blue;
+		if (str == "black") return string_const::black;
+		if (str == "white") return string_const::white;
+		return string_const::black;
+	}
 
-        gSprite = loadSurface("Resources/DefaultSpritesheet.png");
-        if (gSprite == NULL) {
-            std::cerr << "Failed to load PNG image!" << std::endl;
-            success = false;
-        }
-        
-        return success;
-    }
+	void Init() override {
+		loadResources();
+	}
 
-    SDL_Surface* loadSurface(std::string path) {
-        SDL_Surface* optimizedSurface = NULL;
+	bool loadResources() {
+		bool success = true;
 
-        SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-        if (loadedSurface == NULL) {
-            std::cerr << "Unable to load image! SDL_image Error" << std::endl;
-            std::cerr << IMG_GetError() << std::endl;
-        }
-        else {
-            optimizedSurface = SDL_ConvertSurface(loadedSurface, Window::windowSurface->format, 0);
-            if (optimizedSurface == NULL) {
-                std::cerr << "Unable to optimize image! SDL Error!" << std::endl;
-                std::cerr << SDL_GetError() << std::endl;
-            }
+		gTexture = Video::loadTexture("Resources/DefaultSpritesheet.png");
+		if (gTexture == NULL) {
+			std::cerr << "Failed to load PNG image!" << std::endl;
+			success = false;
+		}
 
-            SDL_FreeSurface(loadedSurface);
-        }
+		return success;
+	}
 
-        return optimizedSurface;
-    }
+	void Update(float deltaTime) override { }
 
-    void Update(float deltaTime) override { }
+	void Render() override {
+		rect srcRect = { 0, 0, 1, 1 };
+		rect destRect = { (int)position.x, (int)position.y, width, height };
 
-    void Render() override {
-        SDL_BlitSurface(gSprite, NULL, Window::windowSurface, NULL);
-        SDL_UpdateWindowSurface(Window::window);
-    }
+		switch (hash(color)) {
+		case string_const::red:
+			srcRect = { 2, 0, 1, 1 };
+			break;
+		case string_const::green:
+			srcRect = { 6, 0, 1, 1 };
+			break;
+		case string_const::blue:
+			srcRect = { 11, 0, 1, 1 };
+			break;
+		case string_const::black:
+			srcRect = { 0, 0, 1, 1 };
+			break;
+		case string_const::white:
+			srcRect = { 4, 1, 1, 1 };
+			break;
+		}
+
+		// a pointer to a renderer(where you are going to renderize).
+		// a pointer to a texture(where you are going to get the sprite).
+		// pointer to source rect(the area and position where you get the sprite on the texture).
+		// and pointer to dest rect(the area and position on the renderer you are going to draw).
+		SDL_RenderCopy(Window::renderer, gTexture, &Video::getRectangle(srcRect), &Video::getRectangle(destRect));
+	}
 };
 
 

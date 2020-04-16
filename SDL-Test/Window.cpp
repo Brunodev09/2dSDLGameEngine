@@ -8,7 +8,6 @@
 EntityManager manager;
 SDL_Renderer* Window::renderer;
 SDL_Window* Window::window;
-SDL_Surface* Window::windowSurface;
 
 Window::Window() { this->isRunning = false; }
 
@@ -45,9 +44,6 @@ void Window::Initialize(int width, int height) {
 		std::cerr << IMG_GetError() << std::endl;
 		return;
 	}
-	else {
-		windowSurface = SDL_GetWindowSurface(window);
-	}
 
 	load(0);
 
@@ -57,8 +53,8 @@ void Window::Initialize(int width, int height) {
 
 void Window::load(int n) {
 	Entity& newE(manager.AddEntity("square_1"));
-	//newE.AddComponent<Transform>(0, 0, 20, 20, 32, 32, 1);
-	newE.AddComponent<Sprite>(0, 0, 20, 20, 32, 32, 1, "red");
+	newE.AddComponent<Sprite>(0, 0, 20, 20, 150, 150, 1, "white");
+	newE.AddComponent<Transform>(0, 0, 20, 20, 32, 32, 1);
 	manager.ListAllEntities();
 }
 
@@ -93,18 +89,21 @@ void Window::Render() {
 	// SDL works with double buffers (front and back) to avoid flickering and
 	// other weird stuff It avoids it by swapping the rendered pixels between
 	// the buffers instead of re-rendering This will clear the back buffer
-	// SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
-	// SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 210, 210, 210, 255);
+	SDL_RenderClear(renderer);
 
 	if (manager.hasNoEntities()) return;
 	manager.Render();
 
 	// This is actually going to swap the buffers
-	//SDL_RenderPresent(renderer);
+	SDL_RenderPresent(renderer);
 }
 
 void Window::Destroy() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	window = NULL;
+	renderer = NULL;
+	IMG_Quit();
 	SDL_Quit();
 }
