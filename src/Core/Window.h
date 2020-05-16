@@ -3,9 +3,11 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include "./Core/Entity.h"
-#include "./Core/Component.h"
-#include "./Core/EntityManager.h"    
+#include <typeinfo>
+
+#include "./Entity.h"
+#include "./Component.h"
+#include "./EntityManager.h"    
 
 class Window {
 private:

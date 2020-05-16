@@ -2,7 +2,7 @@
 #define TRANSFORMCOMPONENT_H
 
 #include "../EntityManager.h"
-#include "../../Window.h"
+#include "../Window.h"
 #include "../../Render/Video.h"
 #include <glm.hpp>
 #include <SDL.h>
@@ -34,7 +34,8 @@ public:
 
     void Render() override {
         SDL_SetRenderDrawColor(Window::renderer, 0, 0, 0, 255);
-        SDL_Rect* rectangle = &Video::getRectangle((int)position.x, (int)position.y, width, height);
+        SDL_Rect r = Video::getRectangle((int)position.x, (int)position.y, width, height);
+        SDL_Rect* rectangle = &r;
         SDL_RenderFillRect(Window::renderer, rectangle);
     }
 };

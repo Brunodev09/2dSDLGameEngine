@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "../EntityManager.h"
-#include "../../Window.h"
+#include "../Window.h"
 #include "../../Render/Video.h"
 #include "../../Core/Constants.h"
 #include <glm.hpp>
@@ -50,6 +50,7 @@ public:
 		gTexture = Video::loadTexture("Resources/DefaultSpritesheet.png");
 		if (gTexture == NULL) {
 			std::cerr << "Failed to load PNG image!" << std::endl;
+			std::cout << "Failed to load PNG image!" << std::endl;
 			success = false;
 		}
 
@@ -79,12 +80,16 @@ public:
 			srcRect = { 4, 1, 1, 1 };
 			break;
 		}
+		SDL_Rect r1 = Video::getRectangle(srcRect);
+		SDL_Rect r2 = Video::getRectangle(destRect);
+		SDL_Rect* p1 = &r1;
+		SDL_Rect* p2 = &r2;
 
 		// a pointer to a renderer(where you are going to renderize).
 		// a pointer to a texture(where you are going to get the sprite).
 		// pointer to source rect(the area and position where you get the sprite on the texture).
 		// and pointer to dest rect(the area and position on the renderer you are going to draw).
-		SDL_RenderCopy(Window::renderer, gTexture, &Video::getRectangle(srcRect), &Video::getRectangle(destRect));
+		SDL_RenderCopy(Window::renderer, gTexture, p1, p2);
 	}
 };
 
