@@ -2,3 +2,4 @@
 **/*.dll
 **/*.cpp
 **/sdl2-config
+**/*.lib
