@@ -22,6 +22,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+target_compile_options(${PROJECT_NAME} PRIVATE -lSDL2main -lSDL2 -lSDL2_image)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 find_package(SDL2 REQUIRED)
