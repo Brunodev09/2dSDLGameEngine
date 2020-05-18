@@ -3,6 +3,7 @@
 
 #include "./Entity.h"
 #include <string>
+
 class Entity;
 
 class Component {

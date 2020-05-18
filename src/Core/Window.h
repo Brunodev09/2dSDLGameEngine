@@ -3,7 +3,6 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <typeinfo>
 
 #include "./Entity.h"
 #include "./Component.h"

@@ -1,4 +1,4 @@
-OBJS = *.cpp Core/*.cpp Core/Components/*.h Render/*.h API/Templates/*.cpp
+OBJS = *.cpp Core/*.cpp Core/Components/*.h Render/*.h API/*.h API/Templates/*.cpp
 
 CC = g++
 
@@ -8,7 +8,7 @@ LIBRARY_PATHS = -LC:\vs_dev_libs\SDL\lib
 
 # -w suppresses all warnings
 # -Wl,-subsystem,windows gets rid of the console window
-COMPILER_FLAGS = -w
+COMPILER_FLAGS = -w -std=c++17
 
 LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 

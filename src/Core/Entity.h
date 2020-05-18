@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <typeinfo>
 
 #include "./EntityManager.h"
 #include "./Component.h"
